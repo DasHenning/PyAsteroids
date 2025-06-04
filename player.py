@@ -21,3 +21,16 @@ class Player(cs.CircleShape):
     
     def draw(self, surface):
         pygame.draw.polygon(surface, "white", self.triangle())
+
+    def update(self, dt):
+        keys = pygame.key.get_pressed()
+        if keys[pygame.K_a]:
+            self.rotate(-dt) 
+        if keys[pygame.K_d]:
+            self.rotate(dt)
+
+    def rotate(self, dt):
+        self.rotation += dt*constants.PLAYER_ROTATE_SPEED
+        self.rotation %= 360  # Keep the rotation within 0-360 degrees
+    
+    
