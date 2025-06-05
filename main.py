@@ -36,6 +36,13 @@ def main():
         window.fill("black")
 
         updatable.update(deltaTime)
+        
+        # check for collisions between asteroids and player
+        for asteroid in asteroidsGroup:
+            if character.collision(asteroid):
+                print("Game Over!")
+                return
+        
         for member in drawable:
             member.draw(window)
 
