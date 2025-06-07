@@ -27,7 +27,7 @@ def main():
     projectiles.Projectile.containers = (projectilesGroup, updatable, drawable)
 
     print(
-        "Starting Asteroids!\n"
+        "Starting PyAsteroids!\n"
         f"Screen width: {constants.SCREEN_WIDTH}\n"
         f"Screen height: {constants.SCREEN_HEIGHT}"
     )
@@ -38,6 +38,7 @@ def main():
 
     character = player.Player(constants.SCREEN_WIDTH/2, constants.SCREEN_HEIGHT/2) 
     asteroidSpace = asteroidField.AsteroidField()
+    score = 0
 
     while True:
         if pygame.event.get(pygame.QUIT):
@@ -53,14 +54,16 @@ def main():
                 character.draw(window)
                 pygame.display.flip()
 
-                passed = time.time() - started
-                print(f"Game Over! You died at Level {levelSystem.level} and survived {int(passed)} seconds.")
+                passed = int(time.time() - started)
+                score += passed*10 + (levelSystem.level-1)*100
+                print(f"Game Over! You died at Level {levelSystem.level} and survived {passed} seconds. Your scaore was: {score}")
                 return
             
         # check for collisions between projectiles and asteroids
         for projectile in projectilesGroup:
             for asteroid in asteroidsGroup:
                 if projectile.collision(asteroid):
+                    score += 40
                     projectile.kill()
                     asteroid.split()
                     break  # prevent multiple collisions with the same projectile
