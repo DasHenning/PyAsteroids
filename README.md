@@ -5,3 +5,7 @@ Usage:
 2. open the terminal and navigate to that folder usding cd path/to/folder
 3. type in the terminal: python3 main.py (You need python3.10 or higher to be installed)
 4. have fun!
+
+Controls:
+use WASD or the arrow keys to move around
+press or hold Space to shoot
