@@ -8,7 +8,7 @@ class Asteroid(cs.CircleShape):
         super().__init__(x, y, radius)
 
     def draw(self, surface):
-        pygame.draw.circle(surface, (163, 163, 163), self.position, self.radius, 5)
+        pygame.draw.circle(surface, (178, 178, 178), self.position, self.radius, 5)
 
     def update(self, dt):
         self.position += self.velocity * dt
@@ -27,13 +27,13 @@ class Asteroid(cs.CircleShape):
 
             newRadius = self.radius-constants.ASTEROID_MIN_RADIUS
 
-            child1 = Asteroid(self.position.x + self.velocity.rotate(90).x,
-                                self.position.y + self.velocity.rotate(90).y,
+            child1 = Asteroid(self.position.x + self.velocity.rotate(90).x - self.radius,
+                                self.position.y + self.velocity.rotate(90).y - self.radius,
                                 newRadius)
             child1.velocity = newVector1*1.3
 
-            child2 = Asteroid(self.position.x - self.velocity.rotate(90).x,
-                                self.position.y - self.velocity.rotate(90).y,
+            child2 = Asteroid(self.position.x - self.velocity.rotate(90).x - self.radius,
+                                self.position.y - self.velocity.rotate(90).y - self.radius,
                                 newRadius)
             child2.velocity = newVector2*1.3
 
