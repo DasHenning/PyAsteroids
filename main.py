@@ -46,6 +46,14 @@ def main():
                 character.draw(window)
                 print("Game Over!")
                 return
+            
+        # check for collisions between projectiles and asteroids
+        for projectile in projectilesGroup:
+            for asteroid in asteroidsGroup:
+                if projectile.collision(asteroid):
+                    projectile.kill()
+                    asteroid.split()
+                    break  # prevent multiple collisions with the same projectile
         
         for member in drawable:
             member.draw(window)
@@ -55,5 +63,4 @@ def main():
 
 
 if __name__ == "__main__":
-
     main()
