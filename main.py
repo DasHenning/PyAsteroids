@@ -1,5 +1,8 @@
+import time
+
 import pygame
 import constants
+import levelSystem
 import player
 import asteroids
 import asteroidField
@@ -7,6 +10,9 @@ import projectiles
 
 def main():
     pygame.init()
+
+    started = time.time()
+
     window = pygame.display.set_mode((constants.SCREEN_WIDTH, constants.SCREEN_HEIGHT))
 
     updatable = pygame.sprite.Group()
@@ -28,6 +34,7 @@ def main():
     
     clock = pygame.time.Clock()
     deltaTime = 0
+    secondCheck = 0.0
 
     character = player.Player(constants.SCREEN_WIDTH/2, constants.SCREEN_HEIGHT/2) 
     asteroidSpace = asteroidField.AsteroidField()
@@ -44,7 +51,10 @@ def main():
         for asteroid in asteroidsGroup:
             if character.collision(asteroid):
                 character.draw(window)
-                print("Game Over!")
+                pygame.display.flip()
+
+                passed = time.time() - started
+                print(f"Game Over! You died at Level {levelSystem.level} and survived {int(passed)} seconds.")
                 return
             
         # check for collisions between projectiles and asteroids
@@ -52,13 +62,21 @@ def main():
             for asteroid in asteroidsGroup:
                 if projectile.collision(asteroid):
                     projectile.kill()
+                    print(f"Asteroid size {asteroid.radius/constants.ASTEROID_MIN_RADIUS} destroyed!")
                     asteroid.split()
                     break  # prevent multiple collisions with the same projectile
         
         for member in drawable:
             member.draw(window)
 
+        # increment the level every 20 seconds
+        passedTime = int(time.time() - started)
+        if  secondCheck >= 1 and passedTime%20 == 0 and levelSystem.level < 15:
+            secondCheck = 0
+            levelSystem.increaseLevel()
+        
         deltaTime = clock.tick(100)/1000  # pauses loop for 1/100th of a second (causes 100 FPS) and adds time since last call to deltaTime in seconds (here 0.01)
+        secondCheck += deltaTime
         pygame.display.flip()
 
 

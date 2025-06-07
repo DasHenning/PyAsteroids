@@ -8,14 +8,14 @@ class Asteroid(cs.CircleShape):
         super().__init__(x, y, radius)
 
     def draw(self, surface):
-        pygame.draw.circle(surface, (178, 178, 178), self.position, self.radius, 5)
+        pygame.draw.circle(surface, (115, 115, 115), self.position, self.radius, 6)
 
     def update(self, dt):
         self.position += self.velocity * dt
 
         # Remove the asteroid if it goes off-screen
-        if (self.position.x < -self.radius or self.position.x > constants.SCREEN_WIDTH + self.radius or
-            self.position.y < -self.radius or self.position.y > constants.SCREEN_HEIGHT + self.radius):
+        if (self.position.x < -self.radius*3 or self.position.x > constants.SCREEN_WIDTH + self.radius*3 or
+            self.position.y < -self.radius*3 or self.position.y > constants.SCREEN_HEIGHT + self.radius*3):
             self.kill()
 
     def split(self):
@@ -30,11 +30,11 @@ class Asteroid(cs.CircleShape):
             child1 = Asteroid(self.position.x + self.velocity.rotate(90).x - self.radius,
                                 self.position.y + self.velocity.rotate(90).y - self.radius,
                                 newRadius)
-            child1.velocity = newVector1*1.3
+            child1.velocity = newVector1*1.4
 
             child2 = Asteroid(self.position.x - self.velocity.rotate(90).x - self.radius,
                                 self.position.y - self.velocity.rotate(90).y - self.radius,
                                 newRadius)
-            child2.velocity = newVector2*1.3
+            child2.velocity = newVector2*1.4
 
         self.kill()
