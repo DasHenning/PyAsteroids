@@ -62,7 +62,6 @@ def main():
             for asteroid in asteroidsGroup:
                 if projectile.collision(asteroid):
                     projectile.kill()
-                    print(f"Asteroid size {asteroid.radius/constants.ASTEROID_MIN_RADIUS} destroyed!")
                     asteroid.split()
                     break  # prevent multiple collisions with the same projectile
         

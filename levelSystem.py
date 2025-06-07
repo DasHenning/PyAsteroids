@@ -10,6 +10,3 @@ def increaseLevel():
 
     if level%5 == 0 and asteroidSize < 6:
         asteroidSize += 1
-    
-    print(f"Level{level}")
-
