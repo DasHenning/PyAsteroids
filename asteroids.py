@@ -27,13 +27,13 @@ class Asteroid(cs.CircleShape):
 
             newRadius = self.radius-constants.ASTEROID_MIN_RADIUS
 
-            child1 = Asteroid(self.position.x + self.velocity.rotate(90).x - self.radius,
-                                self.position.y + self.velocity.rotate(90).y - self.radius,
+            child1 = Asteroid(self.position.x + self.velocity.rotate(90).normalize().x*newRadius,
+                                self.position.y + self.velocity.rotate(90).normalize().y*newRadius,
                                 newRadius)
             child1.velocity = newVector1*1.4
 
-            child2 = Asteroid(self.position.x - self.velocity.rotate(90).x - self.radius,
-                                self.position.y - self.velocity.rotate(90).y - self.radius,
+            child2 = Asteroid(self.position.x - self.velocity.rotate(90).normalize().x*newRadius,
+                                self.position.y - self.velocity.rotate(90).normalize().y*newRadius,
                                 newRadius)
             child2.velocity = newVector2*1.4
 
